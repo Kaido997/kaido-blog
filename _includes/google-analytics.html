@@ -1,11 +1,6 @@
-<script type="text/plain", data-cookie-consent="tracking">
-  if (!(window.doNotTrack === "1" ||
-      navigator.doNotTrack === "1" ||
-      navigator.doNotTrack === "yes" ||
-      navigator.msDoNotTrack === "1")) {
-
+<script type="text/plain" data-cookie-consent="tracking">
   // Load Google tag (gtag.js)
-  var gaId = '{{ site.google_analytics }}'; // uses value from _config.yml
+  var gaId = '{{ site.google_analytics }}';
   var gtagScript = document.createElement('script');
   gtagScript.async = true;
   gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
@@ -15,6 +10,5 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', gaId);
-}
 </script>
   
