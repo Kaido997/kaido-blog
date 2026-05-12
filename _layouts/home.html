@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<header class="home-header container">
+  <h1 class="home-header__title vaporwave-text">{{ page.hero_title | default: site.title | escape }}</h1>
+  {%- if page.hero_subtitle -%}
+    <p class="home-header__tagline">{{ page.hero_subtitle | escape }}</p>
+  {%- endif -%}
+  {%- if page.hero_body -%}
+    <p class="home-header__body">{{ page.hero_body | default: site.description | escape }}</p>
+  {%- endif -%}
+</header>
+
+<section class="container" id="posts">
+  <h2 class="section-title">Posts</h2>
+
+  {%- if site.tags.size > 0 -%}
+  <div class="filter-bar" role="group" aria-label="Filter posts by tag">
+    <button type="button" class="category-button selected" data-filter="all">All</button>
+    {%- for tag in site.tags -%}
+      <button type="button" class="category-button" data-filter="{{ tag[0] | slugify }}">{{ tag[0] }}</button>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+
+  {%- if site.posts.size > 0 -%}
+  <ul class="post-list" id="post-list">
+    {%- for post in site.posts -%}
+      {%- assign tag_slugs = "" -%}
+      {%- for t in post.tags -%}
+        {%- assign tslug = t | slugify -%}
+        {%- assign tag_slugs = tag_slugs | append: " " | append: tslug -%}
+      {%- endfor -%}
+      <li class="post-item" data-tags="{{ tag_slugs | strip }}">
+        <time class="post-item__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+        <h3 class="post-item__title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+        <p class="post-item__excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        {%- if post.tags.size > 0 -%}
+        <div class="post-item__tags">
+          {%- for t in post.tags -%}<span class="tag">{{ t }}</span>{%- endfor -%}
+        </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+  <p class="empty-state" id="no-results" hidden>No posts with that tag yet.</p>
+  {%- else -%}
+  <p class="empty-state">No posts yet — check back soon.</p>
+  {%- endif -%}
+</section>

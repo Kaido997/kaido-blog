@@ -2,7 +2,7 @@
 layout: post
 title:  "Day 1"
 date:   2025-10-30 13:36:34 -0400
-categories: intro
+tags: [intro]
 ---
 
 Hello,

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+
+  {%- include head.html -%}
+
+  <body>
+    <div class="page-wrapper">
+      {%- include header.html -%}
+
+      <main class="page-content" aria-label="Content">
+        {{ content }}
+      </main>
+
+      {%- include footer.html -%}
+    </div>
+
+    <script src="{{ '/assets/js/filter.js' | relative_url }}" defer></script>
+  </body>
+
+</html>

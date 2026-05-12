@@ -2,7 +2,7 @@
 layout: post
 title:  "Starting My Journey Through OSTEP"
 date:   2025-11-09 19:44:34 -0400
-categories: OSTEP_learning
+tags: [operating-systems, ostep]
 ---
 
 I’ve recently started learning from Operating Systems: Three Easy Pieces (OSTEP) by Remzi and Andrea Arpaci-Dusseau. It’s a classic, that takes a very practical approach to understanding how operating systems work — from processes and memory to file systems and concurrency.
